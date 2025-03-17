@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { JobCard } from "@/components/JobCard";
+import { JobCard, Job } from "@/components/JobCard";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -9,18 +9,18 @@ import { Slider } from "@/components/ui/slider";
 import { Search, Filter, X } from "lucide-react";
 
 // Mock jobs data
-const MOCK_JOBS = [
+const MOCK_JOBS: Job[] = [
   {
     id: "1",
-    title: "Senior Frontend Developer",
-    company: "TechCorp Solutions",
-    location: "Remote, India",
-    type: "Full-time",
-    salary: "₹25L - ₹35L",
+    title: "Senior React Developer",
+    company: "TechCorp",
+    location: "Mumbai, India",
+    type: "Remote",
+    salary: "₹20L - ₹30L",
     postedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
-    skills: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
+    skills: ["React", "TypeScript", "Redux", "Node.js"],
     featured: true,
-    logo: "https://ui-avatars.com/api/?name=TC&background=0D8ABC&color=fff"
+    logo: "https://ui-avatars.com/api/?name=TC&background=0052CC&color=fff"
   },
   {
     id: "2",
@@ -49,12 +49,12 @@ const MOCK_JOBS = [
     title: "DevOps Engineer",
     company: "Cloud Systems",
     location: "Hyderabad, India",
-    type: "Full-time",
-    salary: "₹20L - ₹30L",
-    postedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), // 1 day ago
-    skills: ["AWS", "Docker", "Kubernetes", "CI/CD", "Terraform"],
+    type: "Remote",
+    salary: "₹20L - ₹28L",
+    postedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // 7 days ago
+    skills: ["Docker", "Kubernetes", "AWS", "CI/CD"],
     featured: true,
-    logo: "https://ui-avatars.com/api/?name=CS&background=0984E3&color=fff"
+    logo: "https://ui-avatars.com/api/?name=CS&background=FD9644&color=fff"
   },
   {
     id: "5",
@@ -70,37 +70,62 @@ const MOCK_JOBS = [
   {
     id: "6",
     title: "Product Manager",
-    company: "ProductHub",
+    company: "Product First",
     location: "Pune, India",
     type: "Full-time",
-    salary: "₹28L - ₹35L",
-    postedAt: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000), // 6 days ago
-    skills: ["Product Strategy", "Agile", "User Research", "Roadmapping"],
-    logo: "https://ui-avatars.com/api/?name=PH&background=FF9F43&color=fff"
+    salary: "₹30L - ₹40L",
+    postedAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000), // 10 days ago
+    skills: ["Product Strategy", "Agile", "User Stories", "Roadmapping"],
+    logo: "https://ui-avatars.com/api/?name=PF&background=ED4C67&color=fff"
   },
   {
     id: "7",
-    title: "Mobile App Developer",
-    company: "AppWorks",
-    location: "Gurgaon, India",
+    title: "Mobile Developer",
+    company: "App Masters",
+    location: "Noida, India",
     type: "Contract",
-    salary: "₹12L - ₹18L",
-    postedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
-    skills: ["React Native", "iOS", "Android", "Flutter"],
-    logo: "https://ui-avatars.com/api/?name=AW&background=20BF6B&color=fff"
+    salary: "₹15L - ₹25L",
+    postedAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000), // 14 days ago
+    skills: ["React Native", "Flutter", "iOS", "Android"],
+    logo: "https://ui-avatars.com/api/?name=AM&background=A3CB38&color=fff"
   },
   {
     id: "8",
-    title: "Backend Engineer",
-    company: "ServerLogic",
-    location: "Chennai, India",
+    title: "Technical Writer",
+    company: "TechDocs",
+    location: "Remote",
     type: "Part-time",
-    salary: "₹10L - ₹15L",
-    postedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), // 1 day ago
-    skills: ["Java", "Spring Boot", "Microservices", "SQL"],
-    logo: "https://ui-avatars.com/api/?name=SL&background=A3CB38&color=fff"
+    salary: "₹8L - ₹15L",
+    postedAt: new Date(Date.now() - 18 * 24 * 60 * 60 * 1000), // 18 days ago
+    skills: ["Technical Writing", "Documentation", "API Docs", "Markdown"],
+    logo: "https://ui-avatars.com/api/?name=TD&background=5758BB&color=fff"
+  },
+  {
+    id: "9",
+    title: "QA Engineer",
+    company: "Quality First",
+    location: "Chennai, India",
+    type: "Full-time",
+    salary: "₹12L - ₹18L",
+    postedAt: new Date(Date.now() - 21 * 24 * 60 * 60 * 1000), // 21 days ago
+    skills: ["Manual Testing", "Automated Testing", "Selenium", "JIRA"],
+    logo: "https://ui-avatars.com/api/?name=QF&background=F78FB3&color=fff"
+  },
+  {
+    id: "10",
+    title: "Backend Developer",
+    company: "ServerSide",
+    location: "Kolkata, India",
+    type: "Internship",
+    salary: "₹5L - ₹8L",
+    postedAt: new Date(Date.now() - 25 * 24 * 60 * 60 * 1000), // 25 days ago
+    skills: ["Java", "Spring Boot", "MySQL", "REST APIs"],
+    logo: "https://ui-avatars.com/api/?name=SS&background=574B90&color=fff"
   }
 ];
+
+// Type filter buttons
+const JOB_TYPES = ["Full-time", "Part-time", "Contract", "Remote", "Internship"];
 
 export default function JobsPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -128,17 +153,26 @@ export default function JobsPage() {
   
   const filteredJobs = MOCK_JOBS.filter(job => {
     // Search term filter
-    const matchesSearch = !searchTerm || 
-      job.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    const matchesSearch = 
+      searchTerm === "" ||
+      job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       job.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
       job.location.toLowerCase().includes(searchTerm.toLowerCase());
     
     // Job type filter
-    const matchesType = selectedTypes.length === 0 || selectedTypes.includes(job.type);
+    const matchesType = 
+      selectedTypes.length === 0 || 
+      selectedTypes.includes(job.type);
     
-    // Salary filter - simplified for the example
-    const minSalary = parseInt(job.salary.split('₹')[1].split('L')[0]);
-    const matchesSalary = minSalary >= salaryRange[0] && minSalary <= salaryRange[1];
+    // Salary filter (simplified)
+    // Convert salary range from "₹XL - ₹YL" to numbers for comparison
+    const salaryText = job.salary;
+    const salaryMatch = salaryText.match(/₹(\d+)L\s*-\s*₹(\d+)L/);
+    const minSalary = salaryMatch ? parseInt(salaryMatch[1], 10) : 0;
+    const maxSalary = salaryMatch ? parseInt(salaryMatch[2], 10) : 100;
+    
+    const matchesSalary = 
+      (minSalary <= salaryRange[1] && maxSalary >= salaryRange[0]);
     
     return matchesSearch && matchesType && matchesSalary;
   });
@@ -189,7 +223,7 @@ export default function JobsPage() {
                 <div>
                   <h4 className="text-sm font-medium mb-2">Job Type</h4>
                   <div className="flex flex-wrap gap-2">
-                    {["Full-time", "Part-time", "Contract", "Remote"].map((type) => (
+                    {JOB_TYPES.map((type) => (
                       <Badge
                         key={type}
                         variant={selectedTypes.includes(type) ? "default" : "outline"}
