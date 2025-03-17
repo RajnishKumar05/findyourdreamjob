@@ -1,137 +1,82 @@
-# JobFinder Application
+# Job Finder Application
 
-A modern job search platform built with Next.js, Firebase, and TypeScript.
+A modern job search platform built with Next.js, React, and Firebase. Find your dream job with ease!
 
 ## Features
 
-- 🔒 User authentication with Firebase (Email/Password and Google Sign-in)
-- 💼 Job listings with detailed information
-- 🗺️ Interactive job map visualization
-- 📝 Resume builder tool
-- 🔍 Advanced job search and filtering
-- 📱 Responsive design for all devices
-- 🌐 Offline capabilities with Firebase Firestore
+- 🔍 Browse and search job listings
+- 📝 Create and manage your professional resume
+- 🗺️ View jobs on an interactive map
+- 📊 Track application status and analytics
+- 👤 User authentication with Google and email/password
+- 💾 Offline data persistence
 
-## Technologies Used
+## Tech Stack
 
-- [Next.js](https://nextjs.org/) - React framework for server-side rendering
-- [TypeScript](https://www.typescriptlang.org/) - Typed JavaScript
-- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
-- [shadcn/ui](https://ui.shadcn.com/) - UI component library
-- [Firebase](https://firebase.google.com/) - Backend services (Authentication, Firestore, Storage)
-- [Lucide Icons](https://lucide.dev/) - Beautiful SVG icons
+- **Frontend:** Next.js 15, React 19, Tailwind CSS, Shadcn UI
+- **Backend:** Firebase (Authentication, Firestore, Storage)
+- **Authentication:** NextAuth.js
+- **Deployment:** Vercel
 
-## Getting Started
+## Deployment Instructions
 
-### Prerequisites
+### Deploying to Vercel
 
-- Node.js (version 18 or later)
-- npm or yarn
-- Firebase project
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/job-finder.git
+1. **Fork/Clone this repository**
+   ```
+   git clone https://github.com/RajnishKumar05/findyourdreamjob.git
    cd job-finder
    ```
 
-2. Install dependencies:
-   ```bash
+2. **Install Dependencies**
+   ```
    npm install
-   # or
-   yarn install
    ```
 
-3. Set up Firebase:
-   - Create a new Firebase project at [Firebase Console](https://console.firebase.google.com/)
-   - Enable Authentication (Email/Password and Google providers)
-   - Set up Firestore database
-   - Get your Firebase configuration
+3. **Set up Firebase**
+   - Create a Firebase project at [firebase.google.com](https://firebase.google.com)
+   - Enable Authentication (Email/Password and Google)
+   - Create a Firestore database
+   - Add your domain to authorized domains list in Firebase Auth settings
 
-4. Create a `.env.local` file in the root directory with your Firebase configuration:
-   ```
-   NEXT_PUBLIC_FIREBASE_API_KEY=your-api-key
-   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
-   NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-project-id
-   NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
-   NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id
-   NEXT_PUBLIC_FIREBASE_APP_ID=your-app-id
-   NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your-measurement-id
-   ```
+4. **Set up Environment Variables in Vercel**
+   - Go to your Vercel project settings
+   - Add the following environment variables:
+     ```
+     NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
+     NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
+     NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_firebase_project_id
+     NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
+     NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
+     NEXT_PUBLIC_FIREBASE_APP_ID=your_firebase_app_id
+     GOOGLE_CLIENT_ID=your_google_client_id
+     GOOGLE_CLIENT_SECRET=your_google_client_secret
+     NEXTAUTH_URL=your_vercel_deployment_url
+     NEXTAUTH_SECRET=a_random_secret_string
+     ```
 
-5. Start the development server:
-```bash
-npm run dev
-# or
-yarn dev
-   ```
+5. **Deploy to Vercel**
+   - Connect your GitHub repository to Vercel
+   - Follow the deployment steps in Vercel dashboard
+   - Choose Next.js as the framework preset
+   - Add environment variables as specified above
+   - Deploy!
 
-6. Open [http://localhost:3000](http://localhost:3000) in your browser
+## Local Development
 
-## Firebase Setup Instructions
+1. Clone the repository
+2. Create a `.env.local` file with the environment variables
+3. Run `npm install`
+4. Run `npm run dev`
+5. Open [http://localhost:3000](http://localhost:3000)
 
-### Authentication
+## PowerShell Commands
 
-1. Go to Firebase Console > Authentication > Sign-in method
-2. Enable Email/Password provider
-3. Enable Google provider
-
-### Firestore Database
-
-1. Go to Firebase Console > Firestore Database
-2. Create a new database in production mode
-3. Set up the following collections:
-   - `users`: User profiles
-   - `jobs`: Job listings
-   - `applications`: Job applications
-   - `resumes`: User resumes
-
-### Security Rules
-
-Add these security rules to your Firestore database for basic protection:
-
+In Windows PowerShell, use semicolons instead of && to chain commands:
 ```
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /users/{userId} {
-      allow read: if request.auth != null;
-      allow write: if request.auth != null && request.auth.uid == userId;
-    }
-    match /jobs/{jobId} {
-      allow read: if true;
-      allow write: if request.auth != null && (resource == null || resource.data.createdBy == request.auth.uid);
-    }
-    match /applications/{applicationId} {
-      allow read: if request.auth != null && (resource.data.userId == request.auth.uid || resource.data.employerId == request.auth.uid);
-      allow write: if request.auth != null && request.resource.data.userId == request.auth.uid;
-    }
-    match /resumes/{resumeId} {
-      allow read, write: if request.auth != null && request.auth.uid == resource.data.userId;
-    }
-  }
-}
-```
-
-## Project Structure
-
-```
-job-finder/
-├── public/             # Static assets
-├── src/
-│   ├── app/            # App router pages
-│   ├── components/     # Reusable components
-│   │   ├── auth/       # Authentication components
-│   │   ├── resume/     # Resume builder components
-│   │   └── ui/         # UI components (shadcn/ui)
-│   ├── lib/            # Utility functions
-│   └── types/          # TypeScript type definitions
-├── .env.local          # Environment variables
-└── README.md           # Project documentation
+cd job-finder; npm run dev
 ```
 
 ## License
 
-This project is licensed under the MIT License.
+MIT
