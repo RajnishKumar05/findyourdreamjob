@@ -13,6 +13,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 export interface Job {
   id: string;
@@ -88,11 +89,15 @@ export function JobCard({ job, variant = "default" }: JobCardProps) {
           )}
         >
           {job.logo ? (
-            <img
-              src={job.logo}
-              alt={`${job.company} logo`}
-              className="w-full h-full object-cover"
-            />
+            <div className="h-10 w-10 overflow-hidden rounded-md relative">
+              <Image
+                src={job.logo}
+                alt={`${job.company} logo`}
+                width={40}
+                height={40}
+                className="object-cover"
+              />
+            </div>
           ) : (
             <Building2
               className={cn(

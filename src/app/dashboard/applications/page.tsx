@@ -2,12 +2,12 @@
 
 import React, { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Briefcase, Calendar, Building, Clock, FileCheck, AlertCircle } from "lucide-react";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Calendar, Building, AlertCircle } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 // Application status variants
 const statusVariants = {
@@ -96,7 +96,7 @@ const StatusBadge = ({ status }: { status: string }) => {
 export default function ApplicationsPage() {
   const { user } = useAuth();
   const [filter, setFilter] = useState('all');
-  const [applications, setApplications] = useState(MOCK_APPLICATIONS);
+  const [applications] = useState(MOCK_APPLICATIONS);
   const [isLoading, setIsLoading] = useState(false);
   
   // In a real app, we would fetch applications from Firestore
@@ -181,10 +181,12 @@ export default function ApplicationsPage() {
                   <div className="p-6 flex-1">
                     <div className="flex items-start gap-4">
                       <div className="h-12 w-12 flex-shrink-0 rounded-md overflow-hidden">
-                        <img 
+                        <Image 
                           src={application.logo} 
                           alt={application.company} 
                           className="h-full w-full object-cover"
+                          width={48}
+                          height={48}
                         />
                       </div>
                       <div className="flex-1">

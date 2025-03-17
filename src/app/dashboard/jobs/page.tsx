@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Slider } from "@/components/ui/slider";
-import { Search, MapPin, Briefcase, Banknote, Filter, X } from "lucide-react";
+import { Search, Filter, X } from "lucide-react";
 
 // Mock jobs data
 const MOCK_JOBS = [

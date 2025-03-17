@@ -48,7 +48,8 @@ function ManageJobsPage() {
   // Load jobs when component mounts
   useEffect(() => {
     fetchJobs();
-  }, [user]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Function to fetch jobs
   const fetchJobs = async () => {
